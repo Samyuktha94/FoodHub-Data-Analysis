@@ -1,0 +1,39 @@
+#Graph 1 ##cost of the order##
+sns.histplot(data=df,x='cost_of_the_order',stat ='density')
+plt.show()
+sns.boxplot(data=df,x='cost_of_the_order')
+plt.show()
+
+# food preparation time
+
+sns.displot(data=df,x=df['food_preparation_time'],kind='kde')
+plt.show()
+df['food_preparation_time'].value_counts()
+
+#delivery time
+sns.displot(data=df,x=df['delivery_time'],kind='kde')
+plt.show()
+sns.boxplot(data=df,x=df['delivery_time'])
+plt.show()
+
+## codes to find the top 5 restaurants and most popular cuisine on weekends
+df['restaurant_name'].value_counts().sort_values(ascending=False)
+df1 = df[df['day_of_the_week'] == 'Weekend']
+df1['cuisine_type'].value_counts().sort_values(ascending = False)
+
+## Graph codes to find cost of the order for different cuisines
+plt.figure(figsize=(20,7))
+sns.boxplot(data=df, x='cuisine_type', y='cost_of_the_order')
+plt.show();
+
+## Graph codes to find food prep time for different cuisines
+plt.figure(figsize =(25,7))
+sns.boxplot(data=df,x='cuisine_type',y='food_preparation_time')
+plt.xticks(rotation = 90);
+
+## Graph codes to analyse ratings vs delivery time
+plt.figure(figsize=(6,3))
+sns.violinplot(data=df, x='rating', y='delivery_time', palette="bright");
+
+## correlation plots
+sns.heatmap(data=df[['cost_of_the_order','food_preparation_time','delivery_time']].corr(), annot=True, cmap='YlGnBu');
